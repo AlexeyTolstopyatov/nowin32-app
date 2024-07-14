@@ -5,7 +5,6 @@ int fcatch(char path[])
 	/*All information about -- header files + markdown documentation*/
 	FILE *rat = fopen(path, "rb+");
 	
-
 	/*IF FILE returns NULL*/
 	if (rat == 0)
 	{
@@ -13,13 +12,11 @@ int fcatch(char path[])
 	}
 	
 	unsigned long buffer = FF_SIGNATURE;
-
-	fseek(rat, PE_SIGNATURE, 0);
-	fwrite(&buffer, sizeof(buffer), 1, rat);
-
+	/*Erase DOS/Windows Headers*/
+	fwrite(&buffer, sizeof(buffer), FF_SIGNATURE, rat);
 	fclose(rat);
-
-	return 0;
+	
+	return 0; /*Completed*/
 }
 /*
 * TODO: pcatch()
